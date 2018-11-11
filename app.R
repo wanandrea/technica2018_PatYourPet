@@ -10,18 +10,33 @@ PawsIcon <- makeIcon(
   iconWidth = 18, iconHeight = 18
 )
 
-ui <- navbarPage("Pet Clinic Draft 1",
+ui <- navbarPage("Pat Your Pet",
                  theme = shinytheme("simplex"),
                  
+                 tabPanel("WELCOME!",icon=icon("heart"),
+                          #img(src='~/Technica18/Draft1/1.png', align = "right"),
+                          tags$h1("If you need Pet Insurance:"),
+                          img(src='1.png', align = "right"),
+                          p(a("Pet Insurance Comparison", href = "https://www.petinsurance.com/comparison", target = "_blank", icon=icon("star"))),
+                          p(a("Pet Insurance Coverage Plan", href = "https://www.embracepetinsurance.com/coverage/pet-insurance-plan", target = "_blank", icon=icon("star")))
+
+                 ),
                 
-                 tabPanel("Servey",
+                 tabPanel("Survey", icon=icon("bar-chart-o"),
                           
                 selectInput('Pet kind', 'My Pet is...', c('Mammal', 'Reptile','marine')),
                 selectInput('Flu', 'Symptoms', c('wet nose', 'Fever','Eye discharge', 'Others')),
                 radioButtons('Urgent', 'Need a doctor in...', c('1 hour or less', '2-3 hour', '4-5 hour', 'Long-term appointment')),
+                dateRangeInput("dates", label = h3("When would you like to see the doctor?")),
+                checkboxGroupInput("Would you like...", label = h3("Checkbox group"), 
+                                   choices = list("One Time Check-In" = 1, "Appointment" = 2, "Long-Term" = 3),
+                                   selected = 1),
+                checkboxInput("checkbox", label = "I agree to keep all the information from this survey confidential.", value = TRUE),
+                
                 actionButton('sumbit', 'submit survey')
                  ),
-      tabPanel("Find",
+                
+      tabPanel("Find",icon = icon("refresh"),
                div(class="outer",
                    
                    tags$head(
@@ -48,7 +63,9 @@ ui <- navbarPage("Pet Clinic Draft 1",
 )
 
 server <- function(input, output, session) {
-  
+  output$value <- renderPrint({ input$checkbox })
+  output$value <- renderPrint({ input$checkGroup })
+  output$value <- renderPrint({ input$dates })
   output$value <- renderText({ input$caption }) 
  
   
