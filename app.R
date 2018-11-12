@@ -1,7 +1,7 @@
 library(shiny)
 library(leaflet)
 library(shinythemes)
-key <- "AIzaSyAHFM3Ev3QYOeLtVKpjr3PCr6oX8RlNCaE"
+key <- your google api key
 register_google(key=key)
 
 
